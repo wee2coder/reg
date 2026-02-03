@@ -85,6 +85,30 @@
         video.style.display = "none";
         snapBtn.classList.add('hidden');
     });
+
+    document.getElementById('submit-btn').addEventListener('click', async () => {
+    const visitorData = {
+        name: document.getElementById('visitor-name').value,
+        ic: document.getElementById('visitor-ic').value,
+        photo: document.getElementById('photo-result').src // This is the image data
+    };
+
+    // Show a loading state
+    document.getElementById('submit-btn').innerText = "Registering...";
+
+    try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbwqhNkBg1X3HEUMx1DFCxBmw2UsTavrurcX-bJpplgg4vWOwLLJOk0ViVycdUEoQzF_/exec', {
+            method: 'POST',
+            body: JSON.stringify(visitorData)
+        });
+        
+        alert("Visitor Registered Successfully!");
+        location.reload(); // Clear form for next visitor
+    } catch (error) {
+        console.error("Error!", error);
+        alert("Saved locally, but failed to sync to cloud.");
+    }
+});
 </script>
 
 </body>
